@@ -1,0 +1,92 @@
+#gameBox{
+	height: 653px;
+	width: 1000px;
+	margin-left: 250px;
+	margin-top: 100px;
+}
+
+#gameZone{
+	height: 500px;
+	width: 960px;
+	background-color: black;
+	padding: 20px;
+}
+
+#statBar{
+	height: 110px;
+	width: 1000px;
+	background-color: black;
+	border-top: 3px solid silver;
+	white-space: nowrap;
+	font-family: Geneva, Helvetica, sans-serif;
+}
+
+#status{
+	display: inline-block;
+	height: 110px;
+	width: 660px;
+}
+
+#statusText{
+	position: absolute;
+	font-size: 18pt;
+	color: white;
+	margin-left: 30px;
+	margin-top: 39px; /*-2px text*/
+}
+
+#undo{
+	display: inline-block;
+	height: 110px;
+	width: 70px;
+}
+
+#undoButton{
+	position: absolute;
+	width: 50px;
+	height: 50px;
+	margin-left: 10px;
+	margin-top: 30px;
+	border: 4px solid red;
+	border-radius: 25px;
+}
+
+#reset{
+	display: inline-block;
+	height: 110px;
+	width: 70px;
+}
+
+#resetButton{
+	position: absolute;
+	width: 50px;
+	height: 50px;
+	margin-left: 10px;
+	margin-top: 30px;
+	border: 4px solid red;
+	border-radius: 25px;
+}
+
+#check{
+	display: inline-block;
+	height: 110px;
+	width: 200px;
+}
+
+#checkButton{
+	position: absolute;
+	width: 160px;
+	height: 50px;
+	margin-left: 10px;
+	margin-top: 30px;
+	border: 0px none;
+	border-radius: 10px;
+	font-size: 18pt;
+	color: white;
+	/*background: linear-gradient(0, #00FF00, #1CBC1B);*/
+	background: #CDCDCD;
+}
+
+.iconPC{
+	position: absolute;
+}

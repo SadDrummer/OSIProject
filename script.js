@@ -6,18 +6,18 @@ class iconPC{
 		this.bottom = 0;
 		this.left = 0;
 		this.right = 0;
-		this.element;
+		this.icon = 0;
 	}
 
 	fillInformation(elem){
 		var coord = elem.getBoundingClientRect();
-		console.log(coord.top, coord.bottom, coord.left, coord.right);
+	//	console.log(coord.top, coord.bottom, coord.left, coord.right);
 		this.id = elem.id;
 		this.top = [Math.round(coord.left + (coord.right - coord.left) / 2), coord.top];
 		this.bottom = [Math.round(coord.left + (coord.right - coord.left) / 2), coord.bottom];
 		this.left = [coord.left, Math.round(coord.top + (coord.bottom - coord.top) / 3)];
 		this.right = [coord.right, Math.round(coord.top + (coord.bottom - coord.top) / 3)];
-		this.element = elem;
+		this.icon = elem;
 	}
 
 	viewInformation(){
@@ -31,6 +31,7 @@ class iconPC{
 
 var listOfClassPC = [];
 var listOfLines = [];
+
 createPCIcons();
 fillArrayOfPC();
 
@@ -41,7 +42,7 @@ function createPCIcons(){
 		icon.setAttribute("src", "images/grey.png");
 		icon.setAttribute("class", "iconPC");
 		icon.setAttribute("id", i);
-		icon.setAttribute("alt", "grey");
+		icon.setAttribute("alt", "iconPC");
 		icon.style.width = 100 + "px";
 		icon.style.height = 80 + "px";
 		icon.style.marginTop = randomTop() + "px";
@@ -58,7 +59,7 @@ function fillArrayOfPC(){
 	for (var i = 0; i < arrayOfIcon.length; i++) {
 		var tempPC = new iconPC();
 		tempPC.fillInformation(arrayOfIcon[i]);
-		tempPC.viewInformation();
+		//tempPC.viewInformation();
 		listOfClassPC[i] = tempPC;
 	}
 }
@@ -74,8 +75,6 @@ function randomLeft(){
 	rand = Math.floor(rand);
 	return rand;
 }
-
-var previousSelectedIcon = 0;
 
 function colorOrUncolorIcon(){
 	switch (this.src) {
@@ -94,17 +93,40 @@ function colorOrUncolorIcon(){
 	}
 }
 
-function selectOrUnselectIcon(){
-	if (previousSelectedIcon == 0) { previousSelectedIcon = this; }
-
-	if (this.src == "file:///D:/Web/OSIProject/images/greylight.png") { this.src = "images/bluelight.png"; return; }
-
-	if (this.src == "file:///D:/Web/OSIProject/images/bluelight.png") { this.src = "images/greylight.png"; return; }
-
-
-	//alert(listOfClassPC[previousSelectedIcon.id - 1].id);
+function changeColorOnClick(elem){
+	switch (elem.src){
+		case "file:///D:/Web/OSIProject/images/greylight.png":
+			elem.src = "images/bluelight.png";
+			break;
+		case "file:///D:/Web/OSIProject/images/blue.png":
+			elem.src = "images/grey.png";
+			break;
+		case "file:///D:/Web/OSIProject/images/bluelight.png":
+			elem.src = "images/greylight.png";
+			break;
+	}
 }
 
-function fillTwoIcon(){
-	//
+var previousSelectedIcon = 0;
+
+function selectOrUnselectIcon(){
+	if (previousSelectedIcon == 0){
+		previousSelectedIcon = this;
+		console.log(listOfClassPC[previousSelectedIcon.id - 1].icon.id);
+		changeColorOnClick(this);
+	} else {
+		if (previousSelectedIcon.id == this.id){
+			previousSelectedIcon = 0;
+			changeColorOnClick(this);
+		} else {
+			connectTwoIcon(previousSelectedIcon, this);
+			changeColorOnClick(previousSelectedIcon);
+			previousSelectedIcon = 0;
+		}
+	}
+}
+
+function connectTwoIcon(elem1, elem2){
+	console.log("Filling two icon" + "\n" + elem1.id + "\n" + elem2.id);
+	//console.log(listOfClassPC[previousSelectedIcon.id - 1].elem);
 }

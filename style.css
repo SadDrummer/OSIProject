@@ -89,3 +89,10 @@
 .iconPC{
 	position: absolute;
 }
+
+.linePair{
+	height: 5px;
+	border: 0px none;
+	border-radius: 25px;
+	background-color: #00CBF9;
+}

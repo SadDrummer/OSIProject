@@ -59,7 +59,6 @@ function fillArrayOfPC(){
 	for (var i = 0; i < arrayOfIcon.length; i++) {
 		var tempPC = new iconPC();
 		tempPC.fillInformation(arrayOfIcon[i]);
-		//tempPC.viewInformation();
 		listOfClassPC[i] = tempPC;
 	}
 }
@@ -112,7 +111,6 @@ var previousSelectedIcon = 0;
 function selectOrUnselectIcon(){
 	if (previousSelectedIcon == 0){
 		previousSelectedIcon = this;
-		console.log(listOfClassPC[previousSelectedIcon.id - 1].icon.id);
 		changeColorOnClick(this);
 	} else {
 		if (previousSelectedIcon.id == this.id){
@@ -126,7 +124,19 @@ function selectOrUnselectIcon(){
 	}
 }
 
+function pythagoras(classPC1, classPC2){
+
+}
+
 function connectTwoIcon(elem1, elem2){
-	console.log("Filling two icon" + "\n" + elem1.id + "\n" + elem2.id);
-	//console.log(listOfClassPC[previousSelectedIcon.id - 1].elem);
+	console.log("Filling two icon" + "  " + elem1.id + "  " + elem2.id);
+	var strIdLine;
+	(elem1.id < elem2.id) ? ( strIdLine = elem1.id + "" + elem2.id ) : ( strIdLine = elem2.id + "" + elem1.id );
+	for (var i = 0; i < listOfLines.length; ++i){ if (strIdLine == listOfLines[i]) return; }
+	listOfLines[listOfLines.length] = strIdLine;
+	var line = document.createElement("hr");
+	line.setAttribute("class", "linePair");
+	line.setAttribute("id", strIdLine);
+	document.getElementById("gameZone").appendChild(line);
+	console.log(listOfLines);
 }

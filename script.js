@@ -124,8 +124,18 @@ function selectOrUnselectIcon(){
 	}
 }
 
-function pythagoras(classPC1, classPC2){
+function checkShortLine(classPC1, classPC2){
+	/*
+	check top with top, top with bottom - upper or lower?
+	check top with left, top with right - left or right?
+	min iz min
+	
+	*/
 
+}
+
+function pythagoras(line){
+ 
 }
 
 function connectTwoIcon(elem1, elem2){
@@ -137,6 +147,6 @@ function connectTwoIcon(elem1, elem2){
 	var line = document.createElement("hr");
 	line.setAttribute("class", "linePair");
 	line.setAttribute("id", strIdLine);
-	document.getElementById("gameZone").appendChild(line);
+	document.getElementById("gameZone").appendChild(line);	//need add pifagor
 	console.log(listOfLines);
 }

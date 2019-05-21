@@ -13,10 +13,10 @@ class iconPC{
 	fillInformation(elem){
 		var coord = elem.getBoundingClientRect();
 		this.id = elem.id;
-		this.top = [Math.round(coord.left + (coord.right - coord.left) / 2), coord.top];
-		this.bottom = [Math.round(coord.left + (coord.right - coord.left) / 2), coord.bottom];
-		this.left = [coord.left, Math.round(coord.top + (coord.bottom - coord.top) / 3)];
-		this.right = [coord.right, Math.round(coord.top + (coord.bottom - coord.top) / 3)];
+		this.top = [Math.round(coord.left + (coord.right - coord.left) / 2), coord.top - 2];
+		this.bottom = [Math.round(coord.left + (coord.right - coord.left) / 2), coord.bottom + 2];
+		this.left = [coord.left - 2, Math.round(coord.top + (coord.bottom - coord.top) / 3)];
+		this.right = [coord.right + 2, Math.round(coord.top + (coord.bottom - coord.top) / 3)];
 		this.center = [this.top[0], this.left[1]];
 		this.icon = elem;
 	}
@@ -136,25 +136,38 @@ function checkShortLine(classPC1, classPC2){
 		if (classPC1.left[0] <= classPC2.left[0]) { quarter = 4; }
 		else quarter = 3;
 	}
-	var paramsForLine = [];
+	console.log(quarter + "\n");
+	var infoForLine = [];
 	switch (quarter) {
 		case 1:
-			( classPC2.center[0] - classPC1.center[0] > classPC1.center[1] - classPC2.center[1] ) ? ( paramsForLine = pythagoras(classPC1.right, classPC2.left) ) : ( paramsForLine = pythagoras(classPC1.top, classPC2.bottom) );
+			( classPC2.center[0] - classPC1.center[0] > classPC1.center[1] - classPC2.center[1] ) ? ( infoForLine = pythagoras(classPC1.right, classPC2.left) ) : ( infoForLine = pythagoras(classPC1.top, classPC2.bottom) );
 			break;
 		case 2:
-			( classPC1.center[0] - classPC2.center[0] > classPC1.center[1] - classPC2.center[1] ) ? ( paramsForLine = pythagoras(classPC1.left, classPC2.right) ) : ( paramsForLine = pythagoras(classPC1.top, classPC2.bottom) );
+			( classPC1.center[0] - classPC2.center[0] > classPC1.center[1] - classPC2.center[1] ) ? ( infoForLine = pythagoras(classPC1.left, classPC2.right, true) ) : ( infoForLine = pythagoras(classPC1.top, classPC2.bottom, true) );
 			break;
 		case 3:
-			( classPC1.center[0] - classPC2.center[0] > classPC2.center[1] - classPC1.center[1] ) ? ( paramsForLine = pythagoras(classPC1.left, classPC2.right) ) : ( paramsForLine = pythagoras(classPC1.bottom, classPC2.top) );
+			( classPC1.center[0] - classPC2.center[0] > classPC2.center[1] - classPC1.center[1] ) ? ( infoForLine = pythagoras(classPC1.left, classPC2.right, true) ) : ( infoForLine = pythagoras(classPC1.bottom, classPC2.top, true) );
 			break;
 		case 4:
-			( classPC2.center[0] - classPC1.center[0] > classPC2.center[1] - classPC1.center[1] ) ? ( paramsForLine = pythagoras(classPC1.right, classPC2.left) ) : ( paramsForLine = pythagoras(classPC1.bottom, classPC2.top) );
+			( classPC2.center[0] - classPC1.center[0] > classPC2.center[1] - classPC1.center[1] ) ? ( infoForLine = pythagoras(classPC1.right, classPC2.left) ) : ( infoForLine = pythagoras(classPC1.bottom, classPC2.top) );
 			break;
 	}
+	return infoForLine;
 }
 
-function pythagoras(coord1, coord2){
-	 
+function pythagoras(coord1, coord2, needAdd180deg = 0){
+	var infoForLine = [];
+	var lenX = coord1[0] - coord2[0];
+	var lenY = coord1[1] - coord2[1];
+	var width = Math.sqrt(lenX * lenX + lenY * lenY);
+	var degrees = Math.atan(lenY / lenX) / Math.PI * 180;
+	if (needAdd180deg) { degrees += 180; }
+	infoForLine[0] = coord1[0];
+	infoForLine[1] = coord1[1] - 10; //10 - fix "bag" with top and it's more beautiful with left/right
+	infoForLine[2] = width;
+	infoForLine[3] = degrees;
+	console.log(infoForLine);
+	return infoForLine;
 }
 
 function connectTwoIcon(elem1, elem2){
@@ -172,10 +185,14 @@ function connectTwoIcon(elem1, elem2){
 	}
 	for (var i = 0; i < listOfLines.length; ++i){ if (strIdLine == listOfLines[i]) return; }
 	listOfLines[listOfLines.length] = strIdLine;
-	checkShortLine(listOfClassPC[element1.id - 1], listOfClassPC[element2.id - 1]);
-	/*var line = document.createElement("hr");
+	var infoForLine = checkShortLine(listOfClassPC[element1.id - 1], listOfClassPC[element2.id - 1]);
+	var line = document.createElement("hr");
 	line.setAttribute("class", "linePair");
 	line.setAttribute("id", strIdLine);
-	document.getElementById("gameZone").appendChild(line);	//need add pifagor
-	console.log(listOfLines);*/
+	line.style.left = infoForLine[0] + "px";
+	line.style.top = infoForLine[1] + "px";
+	line.style.width = infoForLine[2] + "px";
+	line.style.transform = "rotate(" + infoForLine[3] + "deg)";
+	document.getElementById("gameZone").appendChild(line);
+	console.log(listOfLines);
 }

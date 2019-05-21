@@ -13,7 +13,7 @@ class iconPC{
 	fillInformation(elem){
 		var coord = elem.getBoundingClientRect();
 		this.id = elem.id;
-		this.top = [Math.round(coord.left + (coord.right - coord.left) / 2), coord.top - 2];
+		this.top = [Math.round(coord.left + (coord.right - coord.left) / 2), coord.top - 2];		//+-2 - some "border" around icons
 		this.bottom = [Math.round(coord.left + (coord.right - coord.left) / 2), coord.bottom + 2];
 		this.left = [coord.left - 2, Math.round(coord.top + (coord.bottom - coord.top) / 3)];
 		this.right = [coord.right + 2, Math.round(coord.top + (coord.bottom - coord.top) / 3)];

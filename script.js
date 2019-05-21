@@ -2,21 +2,22 @@ class iconPC{
 
 	constructor(){
 		this.id = 0;
-		this.top = 0;
-		this.bottom = 0;
+		this.top = 0;		//format coordinates [x,y]
+		this.bottom = 0;	
 		this.left = 0;
 		this.right = 0;
+		this.center = 0;
 		this.icon = 0;
 	}
 
 	fillInformation(elem){
 		var coord = elem.getBoundingClientRect();
-	//	console.log(coord.top, coord.bottom, coord.left, coord.right);
 		this.id = elem.id;
 		this.top = [Math.round(coord.left + (coord.right - coord.left) / 2), coord.top];
 		this.bottom = [Math.round(coord.left + (coord.right - coord.left) / 2), coord.bottom];
 		this.left = [coord.left, Math.round(coord.top + (coord.bottom - coord.top) / 3)];
 		this.right = [coord.right, Math.round(coord.top + (coord.bottom - coord.top) / 3)];
+		this.center = [this.top[0], this.left[1]];
 		this.icon = elem;
 	}
 
@@ -26,6 +27,7 @@ class iconPC{
 		console.log(this.bottom + "\n");
 		console.log(this.left + "\n");
 		console.log(this.right + "\n");
+		console.log(this.center + "\n");
 	}
 }
 
@@ -125,28 +127,55 @@ function selectOrUnselectIcon(){
 }
 
 function checkShortLine(classPC1, classPC2){
-	/*
-	check top with top, top with bottom - upper or lower?
-	check top with left, top with right - left or right?
-	min iz min
-	
-	*/
-
+	var quarter;
+	if (classPC1.top[1] >= classPC2.top[1]) {
+		if (classPC1.left[0] <= classPC2.left[0]) { quarter = 1; }
+		else quarter = 2;
+	}
+	else{
+		if (classPC1.left[0] <= classPC2.left[0]) { quarter = 4; }
+		else quarter = 3;
+	}
+	var paramsForLine = [];
+	switch (quarter) {
+		case 1:
+			( classPC2.center[0] - classPC1.center[0] > classPC1.center[1] - classPC2.center[1] ) ? ( paramsForLine = pythagoras(classPC1.right, classPC2.left) ) : ( paramsForLine = pythagoras(classPC1.top, classPC2.bottom) );
+			break;
+		case 2:
+			( classPC1.center[0] - classPC2.center[0] > classPC1.center[1] - classPC2.center[1] ) ? ( paramsForLine = pythagoras(classPC1.left, classPC2.right) ) : ( paramsForLine = pythagoras(classPC1.top, classPC2.bottom) );
+			break;
+		case 3:
+			( classPC1.center[0] - classPC2.center[0] > classPC2.center[1] - classPC1.center[1] ) ? ( paramsForLine = pythagoras(classPC1.left, classPC2.right) ) : ( paramsForLine = pythagoras(classPC1.bottom, classPC2.top) );
+			break;
+		case 4:
+			( classPC2.center[0] - classPC1.center[0] > classPC2.center[1] - classPC1.center[1] ) ? ( paramsForLine = pythagoras(classPC1.right, classPC2.left) ) : ( paramsForLine = pythagoras(classPC1.bottom, classPC2.top) );
+			break;
+	}
 }
 
-function pythagoras(line){
- 
+function pythagoras(coord1, coord2){
+	 
 }
 
 function connectTwoIcon(elem1, elem2){
-	console.log("Filling two icon" + "  " + elem1.id + "  " + elem2.id);
 	var strIdLine;
-	(elem1.id < elem2.id) ? ( strIdLine = elem1.id + "" + elem2.id ) : ( strIdLine = elem2.id + "" + elem1.id );
+	var element1, element2;
+	if (elem1.id < elem2.id) {
+		strIdLine = elem1.id + "" + elem2.id;
+		element1 = elem1;
+		element2 = elem2;
+	}
+	else{
+		strIdLine = elem2.id + "" + elem1.id;
+		element1 = elem2;
+		element2 = elem1;
+	}
 	for (var i = 0; i < listOfLines.length; ++i){ if (strIdLine == listOfLines[i]) return; }
 	listOfLines[listOfLines.length] = strIdLine;
-	var line = document.createElement("hr");
+	checkShortLine(listOfClassPC[element1.id - 1], listOfClassPC[element2.id - 1]);
+	/*var line = document.createElement("hr");
 	line.setAttribute("class", "linePair");
 	line.setAttribute("id", strIdLine);
 	document.getElementById("gameZone").appendChild(line);	//need add pifagor
-	console.log(listOfLines);
+	console.log(listOfLines);*/
 }

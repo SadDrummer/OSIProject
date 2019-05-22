@@ -13,7 +13,7 @@ class iconPC{
 	fillInformation(elem){
 		var coord = elem.getBoundingClientRect();
 		this.id = elem.id;
-		this.top = [Math.round(coord.left + (coord.right - coord.left) / 2), coord.top - 2];
+		this.top = [Math.round(coord.left + (coord.right - coord.left) / 2), coord.top - 2];		//+-2 - some "border" around icons
 		this.bottom = [Math.round(coord.left + (coord.right - coord.left) / 2), coord.bottom + 2];
 		this.left = [coord.left - 2, Math.round(coord.top + (coord.bottom - coord.top) / 3)];
 		this.right = [coord.right + 2, Math.round(coord.top + (coord.bottom - coord.top) / 3)];
@@ -33,6 +33,10 @@ class iconPC{
 
 var listOfClassPC = [];
 var listOfLines = [];
+var undo = document.getElementById("undoImg");
+undo.addEventListener("click", function(){
+	if (listOfLines.length) { addOrRemoveListOfLines(false); }
+});
 
 createPCIcons();
 fillArrayOfPC();
@@ -184,7 +188,7 @@ function connectTwoIcon(elem1, elem2){
 		element2 = elem1;
 	}
 	for (var i = 0; i < listOfLines.length; ++i){ if (strIdLine == listOfLines[i]) return; }
-	listOfLines[listOfLines.length] = strIdLine;
+	addOrRemoveListOfLines(true, strIdLine);
 	var infoForLine = checkShortLine(listOfClassPC[element1.id - 1], listOfClassPC[element2.id - 1]);
 	var line = document.createElement("hr");
 	line.setAttribute("class", "linePair");
@@ -195,4 +199,22 @@ function connectTwoIcon(elem1, elem2){
 	line.style.transform = "rotate(" + infoForLine[3] + "deg)";
 	document.getElementById("gameZone").appendChild(line);
 	console.log(listOfLines);
+}
+
+function addOrRemoveListOfLines(isAdd, id = ""){
+	if(isAdd) {
+		if (listOfLines.length == 0) { undo.src = "images/undo.png"; }
+		listOfLines[listOfLines.length] = id;
+	} else {
+		var parent = document.getElementById("gameZone");
+		var line = document.getElementById(listOfLines[listOfLines.length - 1]);
+		parent.removeChild(line);
+		listOfLines.splice(listOfLines.length - 1, 1);
+		if (listOfLines.length == 0) { undo.src = "images/undogrey.png"; }
+	}
+}
+
+function changeUndoColor(){
+	if (undo.src == "file:///D:/Web/OSIProject/images/undolight.png") { undo.src = "images/undo.png"; return; }
+	if (undo.src == "file:///D:/Web/OSIProject/images/undo.png") { undo.src = "images/undolight.png"; return; }
 }

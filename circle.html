@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>OSI and TCP/IP</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<div id="gameBox">
+		<div id="gameZone"></div>
+		<div id="statBar">
+			<div id="status">
+				<div id="statusText">Цель: построить кольцевую сеть</div>
+			</div><div id="undo">
+				<img id="undoImg" src="images/undogrey.png" alt="undo" onmouseover="changeUndoColor()" onmouseout="changeUndoColor()">
+			</div><div id="check">
+				<button id="checkNoButton" onclick="algoCheck()">Проверить</button>
+			</div>
+		</div>		
+	</div>
+	<script type="text/javascript" src="script.js"></script>
+	<script type="text/javascript" src="jquery.js"></script>
+</body>
+</html>

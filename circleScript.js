@@ -76,34 +76,18 @@ function randomLeft(i){
 }
 
 function colorOrUncolorIcon(){
-	switch (this.src) {
-		case "file:///D:/Web/OSIProject/images/grey.png":
-			this.src = "images/greylight.png";
-			break;
-		case "file:///D:/Web/OSIProject/images/greylight.png":
-			this.src = "images/grey.png";
-			break;
-		case "file:///D:/Web/OSIProject/images/blue.png":
-			this.src = "images/bluelight.png";
-			break;
-		case "file:///D:/Web/OSIProject/images/bluelight.png":
-			this.src = "images/blue.png";
-			break;
-	}
+	var src = this.src;
+	if (src.indexOf("images/grey.png") != -1) { this.src = "images/greylight.png"; return; }
+	if (src.indexOf("images/greylight.png") != -1) { this.src = "images/grey.png"; return; }
+	if (src.indexOf("images/blue.png") != -1) { this.src = "images/bluelight.png"; return; }
+	if (src.indexOf("images/bluelight.png") != -1) { this.src = "images/blue.png"; return; }
 }
 
 function changeColorOnClick(elem){
-	switch (elem.src){
-		case "file:///D:/Web/OSIProject/images/greylight.png":
-			elem.src = "images/bluelight.png";
-			break;
-		case "file:///D:/Web/OSIProject/images/blue.png":
-			elem.src = "images/grey.png";
-			break;
-		case "file:///D:/Web/OSIProject/images/bluelight.png":
-			elem.src = "images/greylight.png";
-			break;
-	}
+	var src = elem.src;
+	if (src.indexOf("images/greylight.png") != -1) { elem.src = "images/bluelight.png"; return; }
+	if (src.indexOf("images/blue.png") != -1) { elem.src = "images/grey.png"; return; }
+	if (src.indexOf("images/bluelight.png") != -1) { elem.src = "images/greylight.png"; return; }
 }
 
 function selectOrUnselectIcon(){
@@ -206,8 +190,8 @@ function addOrRemoveListOfLines(isAdd, id = ""){
 }
 
 function changeUndoColor(){
-	if (undo.src == "file:///D:/Web/OSIProject/images/undolight.png") { undo.src = "images/undo.png"; return; }
-	if (undo.src == "file:///D:/Web/OSIProject/images/undo.png") { undo.src = "images/undolight.png"; return; }
+	if (undo.src.indexOf("undolight.png") != -1) { undo.src = "images/undo.png"; return; }
+	if (undo.src.indexOf("undo.png") != -1) { undo.src = "images/undolight.png"; return; }
 }
 
 function checkPairInListOfLines(str, i = 1){

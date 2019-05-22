@@ -31,19 +31,30 @@ class iconPC{
 	}
 }
 
+var pseudoRandom = [ 
+	[200, 360, 450, 280, 690, 220, 740, 20, 440, 80, 100, 0, 0, 220],
+	[860, 150, 600, 200, 360, 100, 150, 130, 20, 350, 340, 350, 700, 420],
+	[0, 400, 80, 220, 0, 0, 390, 100, 800, 200, 600, 400, 320, 340]
+]
+
+const numberOfIcons = 7;
+var tryingNumb = 0;
 var listOfClassPC = [];
 var listOfLines = [];
+var previousSelectedIcon = 0;
+
 var undo = document.getElementById("undoImg");
 undo.addEventListener("click", function(){
 	if (listOfLines.length) { addOrRemoveListOfLines(false); }
 });
+var checkBut;
 
 createPCIcons();
 fillArrayOfPC();
 
 function createPCIcons(){
 	var gameZone = document.getElementById("gameZone");
-	for (var i = 1; i <= 7; i++) {
+	for (var i = 1; i <= numberOfIcons; i++) {
 		var icon = document.createElement("img");
 		icon.setAttribute("src", "images/grey.png");
 		icon.setAttribute("class", "iconPC");
@@ -51,8 +62,8 @@ function createPCIcons(){
 		icon.setAttribute("alt", "iconPC");
 		icon.style.width = 100 + "px";
 		icon.style.height = 80 + "px";
-		icon.style.marginTop = randomTop() + "px";
-		icon.style.marginLeft = randomLeft() + "px";
+		icon.style.marginTop = randomTop(i - 1) + "px";
+		icon.style.marginLeft = randomLeft(i - 1) + "px";
 		icon.onclick = selectOrUnselectIcon;
 		icon.onmouseover = colorOrUncolorIcon;
 		icon.onmouseout = colorOrUncolorIcon;
@@ -69,16 +80,12 @@ function fillArrayOfPC(){
 	}
 }
 
-function randomTop(){
-	var rand = Math.random() * 421;
-	rand = Math.floor(rand);
-	return rand;
+function randomTop(i){
+	return pseudoRandom[tryingNumb][i * 2 + 1];
 }
 
-function randomLeft(){
-	var rand = Math.random() * 861;
-	rand = Math.floor(rand);
-	return rand;
+function randomLeft(i){
+	return pseudoRandom[tryingNumb][i * 2];
 }
 
 function colorOrUncolorIcon(){
@@ -112,8 +119,6 @@ function changeColorOnClick(elem){
 	}
 }
 
-var previousSelectedIcon = 0;
-
 function selectOrUnselectIcon(){
 	if (previousSelectedIcon == 0){
 		previousSelectedIcon = this;
@@ -140,7 +145,6 @@ function checkShortLine(classPC1, classPC2){
 		if (classPC1.left[0] <= classPC2.left[0]) { quarter = 4; }
 		else quarter = 3;
 	}
-	console.log(quarter + "\n");
 	var infoForLine = [];
 	switch (quarter) {
 		case 1:
@@ -170,7 +174,6 @@ function pythagoras(coord1, coord2, needAdd180deg = 0){
 	infoForLine[1] = coord1[1] - 10; //10 - fix "bag" with top and it's more beautiful with left/right
 	infoForLine[2] = width;
 	infoForLine[3] = degrees;
-	console.log(infoForLine);
 	return infoForLine;
 }
 
@@ -212,9 +215,89 @@ function addOrRemoveListOfLines(isAdd, id = ""){
 		listOfLines.splice(listOfLines.length - 1, 1);
 		if (listOfLines.length == 0) { undo.src = "images/undogrey.png"; }
 	}
+	checkCompletenessOfScheme();
 }
 
 function changeUndoColor(){
 	if (undo.src == "file:///D:/Web/OSIProject/images/undolight.png") { undo.src = "images/undo.png"; return; }
 	if (undo.src == "file:///D:/Web/OSIProject/images/undo.png") { undo.src = "images/undolight.png"; return; }
+}
+
+function checkPairInListOfLines(str, i = 1){
+	var isNumberInStr = true;
+	if (i < 8) {
+		console.log("in check: " + str);
+		if (str.split(i).length > 2) { return checkPairInListOfLines(str, ++i); }
+		else return isNumberInStr = false;
+	} else return isNumberInStr;
+}
+
+function checkCompletenessOfScheme(){
+	var fullStrOfLine = "";
+	for (var i = 0; i < listOfLines.length; ++i) { fullStrOfLine += listOfLines[i]; }
+	if (checkPairInListOfLines(fullStrOfLine)) {
+		var check = document.getElementById("checkNoButton");
+		if (check != null) check.id = "checkButton";
+	}
+	else { 
+		var check = document.getElementById("checkButton");
+		if (check != null) check.id = "checkNoButton";
+	}
+	
+}
+
+function getNumbMoreThen2(numbers, i = 0){
+	for (i; i < numberOfIcons; ++i){
+		if (numbers[i] > 2) return i;
+	}
+}
+
+function algoCheck(){
+	if(document.getElementById("checkButton") != null){
+		var numbers = new Array(numberOfIcons);
+		var fullStrOfLine = "";
+		for (var i = 0; i < listOfLines.length; ++i) { fullStrOfLine += listOfLines[i]; }
+		var summOfNumbers = 0;
+		for (var i = 0; i < numberOfIcons; ++i){
+			numbers[i] = fullStrOfLine.split(i + 1).length - 1;
+			summOfNumbers += numbers[i];
+		}
+		if(summOfNumbers == numberOfIcons * 2){
+			alert("Поздравляю, Вы правильно выполнили задание!");
+			var lines = document.getElementsByClassName("linePair");
+			for (var i = 0; i < lines.length; ++i) lines[i].style.backgroundColor = "lime";
+		} else{
+			iMax = (summOfNumbers - numberOfIcons * 2) / 2;
+			for (var i = 0; i < iMax; ++i){
+				var idLine = "";
+				var k = getNumbMoreThen2(numbers);
+				numbers[k] -= 1;
+				idLine += k + 1;
+				k = getNumbMoreThen2(numbers, ++k);
+				numbers[k] -= 1;
+				idLine += k + 1;
+				console.log(idLine);
+				document.getElementById(idLine).style.backgroundColor = "red";
+				var butt = document.getElementById("checkButton");
+				butt.id = "checkBadButton";
+				butt.innerHTML = "Повторить";
+			}
+		}
+		return;
+	}
+	if (document.getElementById("checkBadButton") != null){
+		var butt = document.getElementById("checkBadButton");
+		butt.innerHTML = "Проверить";
+		butt.id = "checkNoButton";
+		++tryingNumb;
+		if (tryingNumb == 3) tryingNumb -= 3;
+		var gameZone = document.getElementById("gameZone");
+		while (gameZone.firstChild) { gameZone.removeChild(gameZone.firstChild); }
+		listOfLines.splice(0, listOfLines.length);
+		listOfClassPC.splice(0, listOfClassPC.length);
+		previousSelectedIcon = 0;
+		createPCIcons();
+		fillArrayOfPC();
+
+	}
 }

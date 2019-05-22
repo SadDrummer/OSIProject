@@ -1,5 +1,4 @@
 class iconPC{
-
 	constructor(){
 		this.id = 0;
 		this.top = 0;		//format coordinates [x,y]
@@ -7,9 +6,7 @@ class iconPC{
 		this.left = 0;
 		this.right = 0;
 		this.center = 0;
-		this.icon = 0;
 	}
-
 	fillInformation(elem){
 		var coord = elem.getBoundingClientRect();
 		this.id = elem.id;
@@ -18,16 +15,6 @@ class iconPC{
 		this.left = [coord.left - 2, Math.round(coord.top + (coord.bottom - coord.top) / 3)];
 		this.right = [coord.right + 2, Math.round(coord.top + (coord.bottom - coord.top) / 3)];
 		this.center = [this.top[0], this.left[1]];
-		this.icon = elem;
-	}
-
-	viewInformation(){
-		console.log(this.id + "\n");
-		console.log(this.top + "\n");
-		console.log(this.bottom + "\n");
-		console.log(this.left + "\n");
-		console.log(this.right + "\n");
-		console.log(this.center + "\n");
 	}
 }
 
@@ -276,7 +263,6 @@ function algoCheck(){
 				k = getNumbMoreThen2(numbers, ++k);
 				numbers[k] -= 1;
 				idLine += k + 1;
-				console.log(idLine);
 				document.getElementById(idLine).style.backgroundColor = "red";
 				var butt = document.getElementById("checkButton");
 				butt.id = "checkBadButton";

@@ -1,21 +1,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Star topology</title>
+	<title>Топология "Звезда"</title>
+	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="gameStyle.css">
+	<link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-	<div id="gameBox">
-		<div id="gameZone"></div>
-		<div id="statBar">
-			<div id="status">
-				<div id="statusText">Цель: построить сеть-звезду</div>
-			</div><div id="undo">
-				<img id="undoImg" src="images/undogrey.png" alt="undo" onmouseover="changeUndoColor()" onmouseout="changeUndoColor()">
-			</div><div id="check">
-				<button id="checkNoButton" onclick="algoCheck()">Проверить</button>
+	<div id="centralBlock">
+		<h1>Топология "Звезда"</h1>
+		<div id="textArea">
+			<p>Топология «Звезда» - схема соединения, при которой каждый компьютер подсоединяется к сети при помощи отдельного соединительного кабеля. Один конец кабеля соединяется с портом сетевого адаптера, другой подсоединяется к центральному устройству, называемому концентратором или сервером (hub). Концентратор обеспечивает параллельное соединение ПК и, таким образом, все компьютеры, подключенные к сети, могут общаться друг с другом.</p>
+			<p>При такой схеме подключения, запрос от любого сетевого устройства направляется прямиком к серверу, где он обрабатывается с различной скоростью, а затем ответ отсылается по всем направлениям, но принимает сигнал только то устройство, которому предназначен ответ, остальные компьютеры этот сигнал игнорируют.</p>
+			<p class="imgP"><img src="images/star.png" alt="Звезда" style="width: 230px;"></p>
+			<p>Предлагаю Вам построить схему "Звезда".</p>
+		</div>
+		<div id="gameBox">
+			<div id="gameZone"></div>
+			<div id="statBar">
+				<div id="status">
+					<div id="statusText">Цель: построить сеть-звезду</div>
+				</div><div id="undo">
+					<img id="undoImg" src="images/undogrey.png" alt="undo" onmouseover="changeUndoColor()" onmouseout="changeUndoColor()">
+				</div><div id="check">
+					<button id="checkNoButton" onclick="algoCheck()">Проверить</button>
+				</div>
+			</div>		
+		</div>
+		<div id="textArea">
+			<p>Достоинства топологии "Звезда":</p>
+			<p>1. Большие возможности для расширения и модернизации;</p>
+			<p>2. Возможность мониторинга сети и централизованного управления сетью;</p>
+			<p>3. Сеть устойчива к неисправностям отдельных ПК и к разрывам соединения отдельных ПК.</p>
+			<p>Недостатки:</p>
+			<p>1. Отказ хаба влияет на работу всей сети;</p>
+			<p>2. Большой расход кабеля.</p>
+			<p>Мы рассмотрели базовые виды топологий, далее мы коротко пробежимся по нестандартным вариантам сети.</p>
+			<div id="links">
+				<div id="linkPrev"><a href="circle.html">Назад</a></div>
+				<div id="linkMain"><a href="index.html">На главную</a></div>
+				<div id="linkNext"><a href="other.html">Далее</a></div>
 			</div>
-		</div>		
+		</div>
 	</div>
 	<script type="text/javascript" src="starScript.js"></script>
 </body>

@@ -268,6 +268,5 @@ function algoCheck(){
 		previousSelectedIcon = 0;
 		createPCIcons();
 		fillArrayOfPC();
-
 	}
 }

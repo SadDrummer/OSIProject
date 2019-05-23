@@ -1,22 +1,41 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Circle topology</title>
+	<title>Кольцевая топология</title>
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="gameStyle.css">
+	<link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-	<div id="gameBox">
-		<div id="gameZone"></div>
-		<div id="statBar">
-			<div id="status">
-				<div id="statusText">Цель: построить кольцевую сеть</div>
-			</div><div id="undo">
-				<img id="undoImg" src="images/undogrey.png" alt="undo" onmouseover="changeUndoColor()" onmouseout="changeUndoColor()">
-			</div><div id="check">
-				<button id="checkNoButton" onclick="algoCheck()">Проверить</button>
+	<div id="centralBlock">
+		<h1>Кольцевая топология</h1>
+		<div id="textArea">
+			<p>После изучения шинной топологии у нас остался один вопрос: как передать информацию в обратном направлении, не усложняя схему? Ответ на этот вопрос прост - необходимо замкнуть нашу линию и тогда пакеты смогут по кольцу пройти путь от любого компьютера к любому. Система не слишком усложниться, но удобство её возрастет. Наша схема будет выглядеть так:</p>
+			<p class="imgP"><img src="images/circletopology.png" alt="Кольцевая топология" style="width: 200px;"></p>
+			<p>А теперь попробуйте построить такую схему.</p>
+		</div>
+		<div id="gameBox">
+			<div id="gameZone"></div>
+			<div id="statBar">
+				<div id="status">
+					<div id="statusText">Цель: построить кольцевую сеть</div>
+				</div><div id="undo">
+					<img id="undoImg" src="images/undogrey.png" alt="undo" onmouseover="changeUndoColor()" onmouseout="changeUndoColor()">
+				</div><div id="check">
+					<button id="checkNoButton" onclick="algoCheck()">Проверить</button>
+				</div>
+			</div>		
+		</div>
+		<div id="textArea">
+			<p>К сожалению, у нас все равно остается проблема повреждения провода, которая может вывести всю систему из строя.</p>
+			<p>Вы знаете про кольцевую ветку метро в Москве? Представьте, что поезда по ней бы ходили только в одну сторону. Это же сколько времени нужно было бы потратить, чтобы добраться до предыдущей соседней станции? Слишком много. Такая же проблема преследует и кольцевую топологию. Мы уже знаем, что можно добавить тот самый встречный поезд - второй кабель, но это усложнит систему, а значит её тяжелее будет обслуживать и она будет дороже стоить. Решать таким способом эту проблему или нет - каждая компания решает для себя сама, исходя из своих финансовых возможностей и критичности потери времени.</p>
+			<p>Однако мы же рассмотрели ещё не все виды топологий, может они решат эту проблему? Об этом мы узнаем далее.</p>
+			<div id="links">
+				<div id="linkPrev"><a href="bus.html">Назад</a></div>
+				<div id="linkMain"><a href="index.html">На главную</a></div>
+				<div id="linkNext"><a href="star.html">Далее</a></div>
 			</div>
-		</div>		
+		</div>
 	</div>
 	<script type="text/javascript" src="circleScript.js"></script>
 </body>

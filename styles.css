@@ -1,0 +1,57 @@
+body{
+	background-color: #FFFDD0;
+}
+
+#centralBlock{
+	width: 1300px;
+	background-color: #FEFDEC;
+	margin: auto;
+	margin-top: 50px;
+	margin-bottom: 50px;
+	border: 2px solid black;
+	border-radius: 20px;
+	padding-bottom: 20px;
+	box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+#textArea{
+	margin: auto;
+	text-align: left;
+	width: 1000px;
+	font-size: 14pt;
+	font-family: Geneva, Helvetica, sans-serif;
+	text-indent: 1.5em;
+	align-content: center;
+}
+
+.imgP{
+	text-align: center;
+}
+
+#links{ white-space: nowrap; }
+
+#linkMain{
+	display: inline-block;
+	text-align: center;
+	width: 500px;
+}
+
+#linkPrev{
+	display: inline-block;
+	text-align: right;
+	width: 212px;
+}
+
+#linkNext{
+	display: inline-block;
+	text-align: left;
+	width: 250px;
+}
+
+p{
+	margin-top: 20px;
+}
+
+h1{
+	text-align: center;
+}

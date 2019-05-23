@@ -18,9 +18,9 @@ class iconPC{
 	}
 }
 
-var pseudoRandom = [ 
-	[50, 20, 200, 360, 740, 80, 650, 420, 440, 210],
-	[350, 30, 340, 390, 580, 110, 760, 300, 100, 270]
+var pseudoRandom = [
+	[350, 30, 340, 390, 580, 110, 760, 300, 100, 270],
+	[50, 20, 200, 360, 740, 80, 650, 420, 440, 210]
 ]
 
 const numberOfIcons = 5;
@@ -81,6 +81,10 @@ function colorOrUncolorIcon(){
 	if (src.indexOf("images/greylight.png") != -1) { this.src = "images/grey.png"; return; }
 	if (src.indexOf("images/blue.png") != -1) { this.src = "images/bluelight.png"; return; }
 	if (src.indexOf("images/bluelight.png") != -1) { this.src = "images/blue.png"; return; }
+	if (src.indexOf("images/servergrey.png") != -1) { this.src = "images/servergreylight.png"; return; }
+	if (src.indexOf("images/servergreylight.png") != -1) { this.src = "images/servergrey.png"; return; }
+	if (src.indexOf("images/serverblue.png") != -1) { this.src = "images/serverbluelight.png"; return; }
+	if (src.indexOf("images/serverbluelight.png") != -1) { this.src = "images/serverblue.png"; return; }
 }
 
 function changeColorOnClick(elem){
@@ -88,6 +92,9 @@ function changeColorOnClick(elem){
 	if (src.indexOf("images/greylight.png") != -1) { elem.src = "images/bluelight.png"; return; }
 	if (src.indexOf("images/blue.png") != -1) { elem.src = "images/grey.png"; return; }
 	if (src.indexOf("images/bluelight.png") != -1) { elem.src = "images/greylight.png"; return; }
+	if (src.indexOf("images/servergreylight.png") != -1) { elem.src = "images/serverbluelight.png"; return; }
+	if (src.indexOf("images/serverblue.png") != -1) { elem.src = "images/servergrey.png"; return; }
+	if (src.indexOf("images/serverbluelight.png") != -1) { elem.src = "images/servergreylight.png"; return; }
 }
 
 function selectOrUnselectIcon(){
